@@ -79,7 +79,8 @@
             "position": 2,
             "handlers": {
                 "change": "select_print_payload",
-                "input": "input_print_payload"
+                "input": "input_print_payload",
+                "click": "click_print_payload"
             },
             "visible": true
         },
@@ -93,11 +94,11 @@
             "parentId": "ws76w29cuv1d922m",
             "position": 0,
             "handlers": {},
-            "visible": true,
             "binding": {
                 "eventType": "ss-option-change",
                 "stateRef": "selector_value"
-            }
+            },
+            "visible": true
         },
         "l86lcpeij3gws9fs": {
             "id": "l86lcpeij3gws9fs",
@@ -119,11 +120,11 @@
             "parentId": "ws76w29cuv1d922m",
             "position": 2,
             "handlers": {},
-            "visible": true,
             "binding": {
                 "eventType": "ss-change",
                 "stateRef": "input_value"
-            }
+            },
+            "visible": true
         }
     }
 }
