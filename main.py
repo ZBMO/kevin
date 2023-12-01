@@ -22,6 +22,20 @@ def increment(state):
     # Shows in the log when the event handler is run
     print(f"The counter has been incremented.")
     _update_message(state)
+
+def click_print_payload(payload):
+    if (payload == None): 
+        print("no payload found")
+    else:
+        print("click payload")
+        print(payload)
+
+def input_print_payload(payload):
+    if (payload == None): 
+        print("no payload found")
+    else:
+        print("input payload")
+        print(payload)
     
 # Initialise the state
 
