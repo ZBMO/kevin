@@ -2,10 +2,15 @@
 	<section 
     class="CoreSection"
 	ref="rootEl" 
-    :class="{ snapMode: fields.snapMode.value == 'yes' }"  
+    :class="{ snapMode: fields.snapMode.value == 'yes' }"
+	v-on:click.capture="captureClick" 
     >
-		<h2 v-if="fields.title.value">{{ fields.title.value }} REAL CUSTOM</h2>
-		<div data-streamsync-container v-on:click.capture="captureClick" v-on:input.capture="captureInput"><slot></slot></div>
+		<h2 v-if="fields.title.value">{{ fields.title.value }} CUSTOM SECTION</h2>
+		<div data-streamsync-container 
+		v-on:input.capture="captureInput"
+		v-on:change.capture="captureChange"
+		
+		><slot></slot></div>
 	</section>
 </template>
 
@@ -87,7 +92,10 @@ function getComponentId(event: Event): string {
 }
 
 function isCorrectInputType(event: Event, expectedTypes): boolean {
+	
     const type = (<HTMLInputElement>event.target).nodeName
+		console.log("type: " + type)
+
     return expectedTypes.includes(type)
 }
 
@@ -114,6 +122,24 @@ function captureInput(event: Event) {
 	const componentId = getComponentId(event)
 	const inputValue = (<HTMLInputElement>event.target).value
 	const customEvent = new CustomEvent("input", {
+		detail: {
+			payload: {
+				id: componentId,
+				value: inputValue
+			},
+		},
+	});
+
+	ss.forwardEvent(customEvent, instancePath, true)
+}
+
+function captureChange(event: Event) {
+	event.stopPropagation()
+    if (!isCorrectInputType(event, ["SELECT"])) { return }
+
+	const componentId = getComponentId(event)
+	const inputValue = (<HTMLInputElement>event.target).value
+	const customEvent = new CustomEvent("change", {
 		detail: {
 			payload: {
 				id: componentId,
